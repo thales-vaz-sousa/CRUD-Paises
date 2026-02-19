@@ -1,0 +1,72 @@
+@model desafio_paises.Models.Pais
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>País</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt class="col-sm-2">
+            População
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Populacao)
+        </dd>
+        <dt class="col-sm-2">
+            DDI
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ddi)
+        </dd>
+        <dt class="col-sm-2">
+            Área Total (km²)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AreaTotal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sigla)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sigla)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Idioma)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Idioma)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Continente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Continente)
+        </dd>
+        <dt class="col-sm-2">
+            ONU
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PaisOnu)
+        </dd>
+        <dt class="col-sm-2">
+            Fundação
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Fundacao.ToString("dd/MM/yyyy")
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Voltar para Lista</a>
+</div>
