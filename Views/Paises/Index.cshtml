@@ -4,94 +4,104 @@
     ViewData["Title"] = "Listagem";
 }
 
-<h1>Listagem</h1>
+<h1 style="text-align:center;" class="mb-4">Listagem de Países</h1>
+<hr/>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Criar Novo</a>
-</p>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <p class="mb-0">
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Adicionar Novo
+            </a>
+        </p>
 
-<form asp-controller="Paises" asp-action="Index" method="get" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="SearchString" class="form-control" placeholder="Buscar por nome ou continente..." />
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-search"></i> Buscar
-        </button>
-        <a asp-action="Index" class="btn btn-secondary">Limpar</a>
+        <form asp-controller="Paises" asp-action="Index" method="get" style="width: 400px;">
+            <div class="input-group">
+                <input type="text" name="SearchString" class="form-control"
+                       placeholder="Buscar por nome ou continente..."/>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Limpar</a>
+            </div>
+        </form>
     </div>
-</form>
-@if (!Model.Any()) {
-    <div class="alert alert-warning">Nenhum país/continente encontrado com esse nome.</div>
-}
 
-<table class="table table-hover table-striped shadow-sm">
-    <thead>
-        <tr>
-            <th>
-                Nome
-            </th>
-            <th>
-                População
-            </th>
-            <th>
-                DDI
-            </th>
-            <th>
-                Área Total (km²)
-            </th>
-            <th>
-                Sigla
-            </th>
-            <th>
-                Idioma
-            </th>
-            <th>
-                Continente
-            </th>
-            <th>
-                ONU
-            </th>
-            <th>
-                Fundação
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Populacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ddi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AreaTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sigla)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Idioma)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Continente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaisOnu)
-            </td>
-            <td>
-                @item.Fundacao.ToString("dd/MM/yyyy")
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Deletar</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning shadow-sm">
+            Nenhum país ou continente encontrado com esses termos.
+        </div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-hover table-striped shadow-sm border">
+            <thead class="table-light">
+            <tr>
+                <th class="font-weight-bold">@Html.DisplayNameFor(model => model.Nome)</th>
+                <th class="font-weight-bold text-center">População</th>
+                <th class="font-weight-bold text-center">DDI</th>
+                <th class="font-weight-bold text-center">Área (km²)</th>
+                <th class="font-weight-bold text-center">Sigla</th>
+                <th class="font-weight-bold">Idioma</th>
+                <th class="font-weight-bold">Continente</th>
+                <th class="font-weight-bold text-center">ONU</th>
+                <th class="font-weight-bold text-center">Fundação</th>
+                <th class="text-center">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="align-middle">
+                        <div class="d-flex align-items-center">
+                            @if (!string.IsNullOrEmpty(item.Sigla))
+                            {
+                                <img src="https://flagcdn.com/w40/@(item.Sigla.ToLower()).png"
+                                     width="30"
+                                     class="me-3 shadow-sm rounded-1"
+                                     alt="Bandeira de @item.Nome"
+                                     onerror="this.style.display='none'">
+                            }
+                            <span class="fw-bold">@Html.DisplayFor(modelItem => item.Nome)</span>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">@item.Populacao.ToString("N0")</td>
+                    <td class="align-middle text-center">+@item.Ddi</td>
+                    <td class="align-middle text-center">@item.AreaTotal.ToString("N2")</td>
+                    <td class="align-middle text-center"><span class="badge bg-secondary">@item.Sigla</span></td>
+                    <td class="align-middle">@Html.DisplayFor(modelItem => item.Idioma)</td>
+                    <td class="align-middle">@Html.DisplayFor(modelItem => item.Continente)</td>
+                    <td class="align-middle text-center">
+                        @if (item.PaisOnu)
+                        {
+                            <span class="text-success" title="Membro"><i class="bi bi-check-circle-fill"></i> Sim</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Não</span>
+                        }
+                    </td>
+                    <td class="align-middle text-center">
+                        @item.Fundacao.ToString("dd/MM/yyyy")
+                    </td>
+                    <td class="align-middle text-center">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white"
+                               title="Detalhes">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"
+                               title="Deletar">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
