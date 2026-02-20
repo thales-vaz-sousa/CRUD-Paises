@@ -1,11 +1,100 @@
 ﻿@{
-    ViewData["Title"] = "Politica de Privacidade";
+    ViewData["Title"] = "Política de Privacidade";
 }
 
+<style>
+    /* Reaproveitando a paleta pastel */
+    .bg-pastel-info { background-color: #f1f8ff; border-left: 5px solid #a8dadc; }
+    .text-pastel-dark { color: #1d3557; }
+    .icon-circle { 
+        width: 40px; 
+        height: 40px;
+        min-width: 40px; 
+        min-height: 40px; 
+        background-color: #a8dadc;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1d3557;
+        flex-shrink: 0;
+    }
+</style>
 
-<div class="text-center">
-    <h1>@ViewData["Title"]</h1>
-    <p>Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica.</p>
-    <p>Licença: MIT (Livre para estudo e modificação).</p>
-    <p>Dados: Os dados inseridos no banco de dados SQLite são fictícios ou para fins de teste.</p>
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <i class="bi bi-shield-lock text-info" style="font-size: 3rem;"></i>
+        <h1 class="fw-bold text-pastel-dark">@ViewData["Title"]</h1>
+        <p class="lead text-muted">Transparência e detalhes sobre o desenvolvimento do projeto.</p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm mb-4 bg-pastel-info">
+                <div class="card-body d-flex align-items-start">
+                    <div class="icon-circle me-3">
+                        <i class="bi bi-code-slash"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Finalidade do Projeto</h5>
+                        <p class="mb-0 text-muted">
+                            Este sistema foi desenvolvido exclusivamente como parte de um <strong>desafio técnico</strong>. 
+                            O objetivo é demonstrar habilidades em ASP.NET Core MVC, Entity Framework e integração de APIs externas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body d-flex align-items-start">
+                    <div class="icon-circle me-3">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Licença MIT</h5>
+                        <p class="mb-0 text-muted">
+                            O código fonte é aberto e está sob a licença <strong>MIT</strong>. Isso significa que você é livre para 
+                            estudar, modificar e distribuir o projeto, desde que mantidos os créditos originais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body d-flex align-items-start">
+                    <div class="icon-circle me-3">
+                        <i class="bi bi-database"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Tratamento de Dados</h5>
+                        <p class="mb-0 text-muted">
+                            Utilizamos <strong>SQLite</strong> para persistência local. Nenhum dado sensível de usuários reais é coletado ou armazenado. 
+                            As informações de países cadastradas servem apenas para simulação.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body d-flex align-items-start">
+                    <div class="icon-circle me-3">
+                        <i class="bi bi-lock"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold">Cookies e Rastreamento</h5>
+                        <p class="mb-0 text-muted">
+                            Este projeto não utiliza cookies de terceiros ou ferramentas de rastreamento de comportamento. 
+                            Sua navegação é totalmente anônima.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary px-4">
+                    <i class="bi bi-arrow-left"></i> Voltar para Sobre
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

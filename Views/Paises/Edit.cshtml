@@ -4,90 +4,121 @@
     ViewData["Title"] = "Editar";
 }
 
-<h1 style="text-align: center">Editar</h1>
+<style>
+    /* Paleta Pastel Customizada */
+    .btn-pastel-primary { background-color: #a8dadc; border: none; color: #1d3557; }
+    .btn-pastel-primary:hover { background-color: #91c9cb; color: #1d3557; }
+    
+    .btn-pastel-secondary { background-color: #e9ecef; border: none; color: #495057; }
+    .btn-pastel-secondary:hover { background-color: #dee2e6; color: #495057; }
+
+    /* Filtro Pastel para a Bandeira */
+    .img-pastel {
+        filter: saturate(70%) contrast(90%) brightness(1.1);
+        border: 1px solid #dee2e6;
+    }
+</style>
+
+<h1 style="text-align: center" class="mb-4">Editar País</h1>
+
 <div class="container">
-    <h4>País</h4>
+    <div class="d-flex align-items-center mb-2">
+        @if (!string.IsNullOrEmpty(Model.Sigla))
+        {
+            <img src="https://flagcdn.com/w80/@(Model.Sigla.ToLower()).png" 
+                 width="60" 
+                 class="me-3 shadow-sm rounded img-pastel" 
+                 alt="Bandeira"
+                 onerror="this.style.display='none'">
+        }
+        <h4 class="mb-0">Informações de @Model.Nome</h4>
+    </div>
     <hr />
+
     <form asp-action="Edit">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
 
         <div class="form-group row mb-3">
-            <label asp-for="Nome" class="col-sm-2 col-form-label font-weight-bold"></label>
+            <label asp-for="Nome" class="col-sm-2 col-form-label fw-bold"></label>
             <div class="col-sm-10">
-                <input asp-for="Nome" class="form-control" />
+                <input asp-for="Nome" class="form-control shadow-sm" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Populacao" class="col-sm-2 col-form-label font-weight-bold">População</label>
+            <label asp-for="Populacao" class="col-sm-2 col-form-label fw-bold">População</label>
             <div class="col-sm-10">
-                <input asp-for="Populacao" class="form-control" />
+                <input asp-for="Populacao" class="form-control shadow-sm" />
                 <span asp-validation-for="Populacao" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Ddi" class="col-sm-2 col-form-label font-weight-bold">DDI</label>
+            <label asp-for="Ddi" class="col-sm-2 col-form-label fw-bold">DDI</label>
             <div class="col-sm-10">
-                <input asp-for="Ddi" class="form-control" />
+                <input asp-for="Ddi" class="form-control shadow-sm" />
                 <span asp-validation-for="Ddi" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="AreaTotal" class="col-sm-2 col-form-label font-weight-bold">Área Total (km²)</label>
+            <label asp-for="AreaTotal" class="col-sm-2 col-form-label fw-bold">Área Total (km²)</label>
             <div class="col-sm-10">
-                <input asp-for="AreaTotal" class="form-control" />
+                <input asp-for="AreaTotal" class="form-control shadow-sm" />
                 <span asp-validation-for="AreaTotal" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Sigla" class="col-sm-2 col-form-label font-weight-bold"></label>
+            <label asp-for="Sigla" class="col-sm-2 col-form-label fw-bold"></label>
             <div class="col-sm-10">
-                <input asp-for="Sigla" class="form-control" />
+                <input asp-for="Sigla" class="form-control shadow-sm" placeholder="Ex: BR, US, AR" />
                 <span asp-validation-for="Sigla" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Idioma" class="col-sm-2 col-form-label font-weight-bold"></label>
+            <label asp-for="Idioma" class="col-sm-2 col-form-label fw-bold"></label>
             <div class="col-sm-10">
-                <input asp-for="Idioma" class="form-control" />
+                <input asp-for="Idioma" class="form-control shadow-sm" />
                 <span asp-validation-for="Idioma" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Continente" class="col-sm-2 col-form-label font-weight-bold"></label>
+            <label asp-for="Continente" class="col-sm-2 col-form-label fw-bold"></label>
             <div class="col-sm-10">
-                <input asp-for="Continente" class="form-control" />
+                <input asp-for="Continente" class="form-control shadow-sm" />
                 <span asp-validation-for="Continente" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label class="col-sm-2 col-form-label font-weight-bold">ONU</label>
+            <label class="col-sm-2 col-form-label fw-bold">ONU</label>
             <div class="col-sm-10 d-flex align-items-center">
-                <input class="form-check-input mt-0" asp-for="PaisOnu" />
+                <input class="form-check-input mt-0 shadow-sm" asp-for="PaisOnu" />
                 <span class="ms-2 text-muted">Membro da ONU</span>
             </div>
         </div>
 
         <div class="form-group row mb-3">
-            <label asp-for="Fundacao" class="col-sm-2 col-form-label font-weight-bold">Fundação</label>
+            <label asp-for="Fundacao" class="col-sm-2 col-form-label fw-bold">Fundação</label>
             <div class="col-sm-10">
-                <input asp-for="Fundacao" class="form-control" type="date" />
+                <input asp-for="Fundacao" class="form-control shadow-sm" type="date" />
                 <span asp-validation-for="Fundacao" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row mt-4">
             <div class="col-sm-10 offset-sm-2">
-                <input type="submit" value="Salvar Alterações" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-outline-secondary ms-2">Voltar</a>
+                <button type="submit" class="btn btn-pastel-primary px-4 shadow-sm">
+                    <i class="bi bi-save"></i> Salvar Alterações
+                </button>
+                <a asp-action="Index" class="btn btn-pastel-secondary ms-2 shadow-sm">
+                    <i class="bi bi-arrow-left"></i> Voltar para Lista
+                </a>
             </div>
         </div>
     </form>

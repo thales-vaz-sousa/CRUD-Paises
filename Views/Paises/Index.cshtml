@@ -4,23 +4,89 @@
     ViewData["Title"] = "Listagem";
 }
 
+<style>
+    /* Cores Pasteis Customizadas */
+
+    /* botoes*/
+    .btn-pastel-primary {
+        background-color: #93c1c3;
+        border: none;
+        color: #1d3557;
+    }
+
+    .btn-pastel-primary:hover {
+        background-color: #3e5959;
+        color: #1d3557;
+    }
+
+    .btn-pastel-warning {
+        background-color: #f4e6af;
+        border: none;
+        color: #5d4e13;
+    }
+
+    .btn-pastel-warning:hover {
+        background-color: #edda6d;
+    }
+
+    .btn-pastel-info {
+        background-color: #cbd0ff;
+        border: none;
+        color: #2b3a67;
+    }
+
+
+    .btn-pastel-info:hover {
+        background-color: #a2adff;
+    }
+
+    .btn-pastel-danger {
+        background-color: #ffadad;
+        border: none;
+        color: #780000;
+    }
+
+
+    .btn-pastel-danger:hover {
+        background-color: #ff9494;
+    }
+
+    .btn-pastel-secondary {
+        background-color: #e9ecef;
+        border: none;
+        color: #495057;
+    }
+
+    /* bandeiras*/
+    .img-pastel {
+        /* Reduz a intensidade das cores (saturação) e o contraste */
+        filter: saturate(70%) contrast(90%) brightness(1.1);
+        transition: filter 0.3s ease; /* Efeito suave ao passar o mouse */
+    }
+
+    .img-pastel:hover {
+        /* Volta ao normal quando o usuário passa o mouse */
+        filter: saturate(100%) contrast(100%) brightness(1.0);
+    }
+
+</style>
+
 <h1 style="text-align:center;" class="mb-4">Listagem de Países</h1>
 <hr/>
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="mb-0">
-            <a asp-action="Create" class="btn btn-primary">
+        <p class="mb-0 me-4"><a asp-action="Create" class="btn btn-pastel-primary shadow-sm">
                 <i class="bi bi-plus-lg"></i> Adicionar Novo
             </a>
         </p>
 
-        <form asp-controller="Paises" asp-action="Index" method="get" style="width: 400px;">
+        <form asp-controller="Paises" asp-action="Index" method="get" class="flex-grow-1" style="max-width: 800px;">
             <div class="input-group">
                 <input type="text" name="SearchString" class="form-control"
                        placeholder="Buscar por nome ou continente..."/>
-                <button type="submit" class="btn btn-primary">Buscar</button>
-                <a asp-action="Index" class="btn btn-outline-secondary">Limpar</a>
+                <button type="submit" class="btn btn-pastel-primary">Buscar</button>
+                <a asp-action="Index" class="btn btn-pastel-secondary">Limpar</a>
             </div>
         </form>
     </div>
@@ -58,7 +124,7 @@
                             {
                                 <img src="https://flagcdn.com/w40/@(item.Sigla.ToLower()).png"
                                      width="30"
-                                     class="me-3 shadow-sm rounded-1"
+                                     class="me-3 shadow-sm rounded-1 img-pastel"
                                      alt="Bandeira de @item.Nome"
                                      onerror="this.style.display='none'">
                             }
@@ -66,15 +132,17 @@
                         </div>
                     </td>
                     <td class="align-middle text-center">@item.Populacao.ToString("N0")</td>
-                    <td class="align-middle text-center">+@item.Ddi</td>
+                    <td class="align-middle text-center"><span class="badge btn-pastel-secondary">+@item.Ddi</span></td>
                     <td class="align-middle text-center">@item.AreaTotal.ToString("N2")</td>
-                    <td class="align-middle text-center"><span class="badge bg-secondary">@item.Sigla</span></td>
+                    <td class="align-middle text-center"><span class="badge rounded-pill text-dark"
+                                                               style="background-color: #d8e2dc;">@item.Sigla</span>
+                    </td>
                     <td class="align-middle">@Html.DisplayFor(modelItem => item.Idioma)</td>
                     <td class="align-middle">@Html.DisplayFor(modelItem => item.Continente)</td>
                     <td class="align-middle text-center">
                         @if (item.PaisOnu)
                         {
-                            <span class="text-success" title="Membro"><i class="bi bi-check-circle-fill"></i> Sim</span>
+                            <span class="text-success" title="Membro"><i class="bi bi-patch-check-fill"></i> Sim</span>
                         }
                         else
                         {
@@ -86,14 +154,15 @@
                     </td>
                     <td class="align-middle text-center">
                         <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Editar">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-pastel-warning"
+                               title="Editar">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white"
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-pastel-info"
                                title="Detalhes">
                                 <i class="bi bi-eye"></i>
                             </a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger"
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-pastel-danger"
                                title="Deletar">
                                 <i class="bi bi-trash"></i>
                             </a>
@@ -105,3 +174,4 @@
         </table>
     </div>
 </div>
+

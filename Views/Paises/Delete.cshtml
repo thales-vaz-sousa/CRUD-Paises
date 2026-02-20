@@ -4,72 +4,84 @@
     ViewData["Title"] = "Apagar";
 }
 
-<h1>Apagar</h1>
+<style>
+    .btn-pastel-danger { background-color: #ffadad; border: none; color: #780000; }
+    .btn-pastel-danger:hover { background-color: #ff9494; color: #780000; }
+    
+    .btn-pastel-secondary { background-color: #e9ecef; border: none; color: #495057; }
+    .btn-pastel-secondary:hover { background-color: #dee2e6; color: #495057; }
 
-<h3>Voce tem certeza que quer apagar?</h3>
-<div>
-    <h4>País</h4>
+    .img-pastel {
+        filter: saturate(70%) contrast(90%) brightness(1.1);
+        border: 1px solid #dee2e6;
+    }
+</style>
+
+<h1 style="text-align: center" class="mb-4 text-danger">Confirmar Exclusão</h1>
+
+<div class="container">
+    <div class="alert alert-danger shadow-sm d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+        <div>
+            <strong>Atenção!</strong> Você está prestes a remover este registro permanentemente.
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center mt-4 mb-2">
+        @if (!string.IsNullOrEmpty(Model.Sigla))
+        {
+            <img src="https://flagcdn.com/w80/@(Model.Sigla.ToLower()).png"
+                 width="60"
+                 class="me-3 shadow-sm rounded img-pastel"
+                 alt="Bandeira"
+                 onerror="this.style.display='none'">
+        }
+        <h4 class="mb-0">Dados do País @Model.Nome</h4>
+    </div>
     <hr/>
+
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+        <dt class="col-sm-2 fw-bold text-muted">@Html.DisplayNameFor(model => model.Nome)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Nome)</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">População</dt>
+        <dd class="col-sm-10">@Model.Populacao.ToString("N0")</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">DDI</dt>
+        <dd class="col-sm-10">+@Html.DisplayFor(model => model.Ddi)</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">Área Total</dt>
+        <dd class="col-sm-10">@Model.AreaTotal.ToString("N2") km²</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">@Html.DisplayNameFor(model => model.Sigla)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Sigla)</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">@Html.DisplayNameFor(model => model.Idioma)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Idioma)</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">@Html.DisplayNameFor(model => model.Continente)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Continente)</dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">ONU</dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
+            @if (Model.PaisOnu) { <span>Membro da ONU</span> } else { <span>Não Membro</span> }
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Populacao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Populacao)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ddi)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ddi)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AreaTotal)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AreaTotal)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Sigla)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Sigla)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Idioma)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Idioma)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Continente)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Continente)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PaisOnu)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PaisOnu)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Fundacao)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Fundacao)
-        </dd>
+
+        <dt class="col-sm-2 fw-bold text-muted">Fundação</dt>
+        <dd class="col-sm-10">@Model.Fundacao.ToString("dd/MM/yyyy")</dd>
     </dl>
 
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id"/>
-        <input type="submit" value="Delete" class="btn btn-danger"/> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <div class="row mt-5 mb-5">
+        <div class="col-sm-10 offset-sm-2">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="Id"/>
+                <button type="submit" class="btn btn-pastel-danger px-4 shadow-sm me-2">
+                    <i class="bi bi-trash"></i> Apagar Agora
+                </button>
+                <a asp-action="Index" class="btn btn-pastel-secondary shadow-sm">
+                    <i class="bi bi-arrow-left"></i> Cancelar e Voltar
+                </a>
+            </form>
+        </div>
+    </div>
 </div>

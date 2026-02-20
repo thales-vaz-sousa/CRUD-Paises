@@ -10,6 +10,7 @@ builder.Services.AddDbContext<CriarContextoDb>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 // deixando em portugues br o suporte do app
 var defaultCulture = new CultureInfo("pt-BR");
 var localizationOptions = new RequestLocalizationOptions

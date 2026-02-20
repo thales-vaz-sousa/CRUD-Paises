@@ -4,91 +4,123 @@
     ViewData["Title"] = "Detalhes";
 }
 
-<h1 style="text-align: center">Detalhes</h1>
+<style>
+    /* Paleta Pastel Customizada */
+    .btn-pastel-primary { background-color: #a8dadc; border: none; color: #1d3557; }
+    .btn-pastel-primary:hover { background-color: #91c9cb; color: #1d3557; }
+    
+    .btn-pastel-secondary { background-color: #e9ecef; border: none; color: #495057; }
+    .btn-pastel-secondary:hover { background-color: #dee2e6; color: #495057; }
+
+    /* Filtro Pastel para a Bandeira */
+    .img-pastel {
+        filter: saturate(70%) contrast(90%) brightness(1.1);
+        border: 1px solid #dee2e6;
+    }
+
+    /* Ajuste para destacar os labels */
+    dt { color: #457b9d; }
+</style>
+
+<h1 style="text-align: center" class="mb-4">Detalhes do País</h1>
 
 <div class="container">
     <div class="d-flex align-items-center mb-2">
         @if (!string.IsNullOrEmpty(Model.Sigla))
         {
-            <img src="https://flagcdn.com/w80/@(Model.Sigla.ToLower()).png"
-                 width="60"
-                 class="me-3 shadow-sm rounded border"
+            <img src="https://flagcdn.com/w160/@(Model.Sigla.ToLower()).png"
+                 width="100"
+                 class="me-4 shadow-sm rounded img-pastel"
                  alt="Bandeira de @Model.Nome"
                  onerror="this.style.display='none'">
         }
-        <h4 class="mb-0">Dados do País</h4>
+        <div>
+            <h2 class="mb-0 fw-bold" style="color: #1d3557;">@Model.Nome</h2>
+            <p class="text-muted mb-0">Informações gerais e estatísticas</p>
+        </div>
     </div>
     <hr/>
 
-    <dl class="row">
-        <dt class="col-sm-2 font-weight-bold">
+    <dl class="row mt-4">
+        <dt class="col-sm-2 fw-bold">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             População
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Populacao)
+            @Model.Populacao.ToString("N0")
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             DDI
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ddi)
+            <span class="badge btn-pastel-secondary">+@Model.Ddi</span>
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
-            Área Total (km²)
+        <dt class="col-sm-2 fw-bold">
+            Área Total
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AreaTotal)
+            @Model.AreaTotal.ToString("N2") km²
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             @Html.DisplayNameFor(model => model.Sigla)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Sigla)
+            <span class="badge btn-pastel-secondary text-dark">@Model.Sigla</span>
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             @Html.DisplayNameFor(model => model.Idioma)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Idioma)
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             @Html.DisplayNameFor(model => model.Continente)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Continente)
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             ONU
         </dt>
         <dd class="col-sm-10">
-            @(Model.PaisOnu ? "Membro da ONU" : "Não Membro")
+            @if (Model.PaisOnu)
+            {
+                <span class="text-success"><i class="bi bi-patch-check-fill"></i> Membro Ativo</span>
+            }
+            else
+            {
+                <span class="text-muted">Não Membro</span>
+            }
         </dd>
 
-        <dt class="col-sm-2 font-weight-bold">
+        <dt class="col-sm-2 fw-bold">
             Fundação
         </dt>
         <dd class="col-sm-10">
-            @Model.Fundacao.ToString("dd/MM/yyyy")
+            <i class="bi bi-calendar3 me-1"></i> @Model.Fundacao.ToString("dd/MM/yyyy")
         </dd>
     </dl>
 
-    <div class="row mt-4">
+    <div class="row mt-5">
         <div class="col-sm-10 offset-sm-2">
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a>
-            <a asp-action="Index" class="btn btn-outline-secondary ms-2">Voltar para Lista</a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-pastel-primary px-4 shadow-sm">
+                <i class="bi bi-pencil-square"></i> Editar Dados
+            </a>
+            <a asp-action="Index" class="btn btn-pastel-secondary ms-2 shadow-sm">
+                <i class="bi bi-arrow-left"></i> Voltar para Lista
+            </a>
         </div>
     </div>
 </div>
