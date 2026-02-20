@@ -1,71 +1,119 @@
 @model desafio_paises.Models.Pais
 
 @{
-    ViewData["Title"] = "Criar";
+    ViewData["Title"] = "Adicionar Novo País";
 }
 
-<h1>Criar</h1>
+<style>
+    /* Paleta Pastel Customizada */
+    .btn-pastel-primary { background-color: #a8dadc; border: none; color: #1d3557; }
+    .btn-pastel-primary:hover { background-color: #91c9cb; color: #1d3557; }
+    
+    .btn-pastel-secondary { background-color: #e9ecef; border: none; color: #495057; }
+    .btn-pastel-secondary:hover { background-color: #dee2e6; color: #495057; }
+</style>
 
-<h4>Pais</h4>
-<hr/>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control"/>
+<h1 style="text-align: center" class="mb-4">Adicionar Novo País</h1>
+
+<div class="container">
+    <div class="d-flex align-items-center mb-2">
+        <div class="icon-circle me-3 flex-shrink-0" style="width: 45px; height: 45px; background-color: #a8dadc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1d3557;">
+            <i class="bi bi-globe-americas fs-4"></i>
+        </div>
+        <h4 class="mb-0">Novo Registro</h4>
+    </div>
+    <hr />
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Nome" class="col-sm-2 col-form-label fw-bold"></label>
+            <div class="col-sm-10">
+                <input asp-for="Nome" class="form-control shadow-sm" placeholder="Nome do país" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Populacao" class="control-label"> População</label>
-                <input asp-for="Populacao" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Populacao" class="col-sm-2 col-form-label fw-bold">População</label>
+            <div class="col-sm-10">
+                <input asp-for="Populacao" class="form-control shadow-sm" type="number" />
                 <span asp-validation-for="Populacao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Ddi" class="control-label"> DDI</label>
-                <input asp-for="Ddi" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Ddi" class="col-sm-2 col-form-label fw-bold">DDI</label>
+            <div class="col-sm-10">
+                <input asp-for="Ddi" class="form-control shadow-sm" placeholder="Ex: 55" />
                 <span asp-validation-for="Ddi" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="AreaTotal" class="control-label"> Área Total (km²)</label>
-                <input asp-for="AreaTotal" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="AreaTotal" class="col-sm-2 col-form-label fw-bold">Área Total (km²)</label>
+            <div class="col-sm-10">
+                <input asp-for="AreaTotal" class="form-control shadow-sm" />
                 <span asp-validation-for="AreaTotal" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Sigla" class="control-label"></label>
-                <input asp-for="Sigla" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Sigla" class="col-sm-2 col-form-label fw-bold"></label>
+            <div class="col-sm-10">
+                <input asp-for="Sigla" class="form-control shadow-sm" placeholder="Ex: BR" maxlength="2" />
                 <span asp-validation-for="Sigla" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Idioma" class="control-label"></label>
-                <input asp-for="Idioma" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Idioma" class="col-sm-2 col-form-label fw-bold"></label>
+            <div class="col-sm-10">
+                <input asp-for="Idioma" class="form-control shadow-sm" placeholder="Idioma principal" />
                 <span asp-validation-for="Idioma" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Continente" class="control-label"></label>
-                <input asp-for="Continente" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Continente" class="col-sm-2 col-form-label fw-bold"></label>
+            <div class="col-sm-10">
+                <input asp-for="Continente" class="form-control shadow-sm" placeholder="Ex: América do Sul" />
                 <span asp-validation-for="Continente" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PaisOnu"/> ONU
-                </label>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label fw-bold">ONU</label>
+            <div class="col-sm-10 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input shadow-sm" asp-for="PaisOnu" id="checkOnu" />
+                    <label class="form-check-label text-muted" for="checkOnu">
+                        Membro da ONU
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Fundacao" class="control-label"> Fundação</label>
-                <input asp-for="Fundacao" class="form-control"/>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label asp-for="Fundacao" class="col-sm-2 col-form-label fw-bold">Fundação</label>
+            <div class="col-sm-10">
+                <input asp-for="Fundacao" class="form-control shadow-sm" type="date" />
                 <span asp-validation-for="Fundacao" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Criar" class="btn btn-primary"/>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+        <div class="form-group row mt-4 mb-5">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-pastel-primary px-4 shadow-sm me-2">
+                    <i class="bi bi-check-lg"></i> Criar País
+                </button>
+                <a asp-action="Index" class="btn btn-pastel-secondary shadow-sm">
+                    <i class="bi bi-arrow-left"></i> Voltar para Lista
+                </a>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
